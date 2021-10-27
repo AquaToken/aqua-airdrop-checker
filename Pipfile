@@ -1,0 +1,43 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+isort = "*"
+flake8 = "*"
+dlint = "*"
+flake8-bandit = "*"
+flake8-blind-except = "*"
+flake8-broken-line = "*"
+flake8-bugbear = "*"
+flake8-comprehensions = "*"
+flake8-eradicate = "*"
+flake8-string-format = "*"
+flake8-commas = "*"
+flake8-quotes = "*"
+flake8-isort = "*"
+flake8-logging-format = "*"
+mccabe = "*"
+pep8-naming = "*"
+pycodestyle = "*"
+flake8-rst-docstrings = "*"
+flake8-pep3101 = "*"
+flake8-mutable = "*"
+django-debug-toolbar = "*"
+
+[packages]
+django-environ = "*"
+ipython = "*"
+sentry-sdk = "*"
+djangorestframework = ">=3.10"
+gunicorn = "*"
+Django = ">=3.2,<3.3"
+python-dateutil = "*"
+aiohttp = "*"
+stellar-sdk = "*"
+django-constance = {extras = ["database"], version = "*"}
+psycopg2-binary = "*"
+
+[requires]
+python_version = "3.9"
