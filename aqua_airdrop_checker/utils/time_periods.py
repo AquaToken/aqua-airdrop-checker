@@ -42,7 +42,7 @@ class Period:
 
 def unite_periods(period_list1: List[Period], period_list2: List[Period]) -> List[Period]:
     """
-    Unite two periods lists.
+    Unite two sorted lists of time periods.
 
     :param period_list1:
     :param period_list2:
@@ -53,10 +53,10 @@ def unite_periods(period_list1: List[Period], period_list2: List[Period]) -> Lis
 
     current_period = joined_list[0]
     result_list = []
-    # Go through sorted union of periods and look for intersected periods. Unite them into new one.
+    # Go through a sorted union of periods and look for overlapping periods. Unite them into a new one.
     for new_period in joined_list[1:]:
         if current_period.end < new_period.start:
-            # Periods do not intersect.
+            # Periods do not overlap.
             result_list.append(current_period)
             current_period = new_period
             continue
@@ -73,7 +73,7 @@ def unite_periods(period_list1: List[Period], period_list2: List[Period]) -> Lis
 
 def intersect_periods(period_list1: List[Period], period_list2: List[Period]) -> List[Period]:
     """
-    Intersect two sorted periods lists.
+    Intersect two sorted lists of time periods.
 
     :param period_list1:
     :param period_list2:
@@ -82,18 +82,18 @@ def intersect_periods(period_list1: List[Period], period_list2: List[Period]) ->
     index1 = 0
     index2 = 0
     result_list = []
-    # Go through two lists in parallel. Look for period intersection.
+    # Go through two lists in parallel and look for overlapping periods.
     while index1 < len(period_list1) and index2 < len(period_list2):
         period1 = period_list1[index1]
         period2 = period_list2[index2]
 
         if period1.end < period2.start:
-            # period1 ends before period2. Take next one.
+            # period1 ends before period2. Move to the next one.
             index1 += 1
             continue
 
         if period2.end < period1.start:
-            # period2 ends before period1. Take next one.
+            # period2 ends before period1. Move to the next one.
             index2 += 1
             continue
 
@@ -113,18 +113,19 @@ def intersect_periods(period_list1: List[Period], period_list2: List[Period]) ->
 
 def negate_periods(period_list: List[Period]) -> List[Period]:
     """
-    Negate sorted periods list.
+    Create an absolute complement of sorted lists of time periods.
 
     :param period_list:
     :return:
     """
     result_list = []
-    # Starts at minus infinite.
+    # Start at the beginning of the timeline.
     previous_end = Period.get_min_value()
-    # Go through list. Create new period base on the end of previous and start on current.
+    # Go through the list of periods. Create a new period based on the end of previous period and the start of
+    # current period.
     for period in period_list:
         if period.start == Period.get_min_value():
-            # Current period doesn't have start. Skip it.
+            # Current period doesn't have a start. Skip this period.
             previous_end = period.end
             continue
 
@@ -135,7 +136,7 @@ def negate_periods(period_list: List[Period]) -> List[Period]:
         previous_end = period.end
 
     if previous_end != Period.get_max_value():
-        # If last period has finite end then we add the remainder of time ray as last period.
+        # If the last period has a finite end then add the remainder of timeline as the last period.
         result_list.append(Period(
             start=previous_end,
             end=Period.get_max_value(),

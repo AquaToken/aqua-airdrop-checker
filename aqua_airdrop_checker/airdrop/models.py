@@ -63,7 +63,7 @@ class AirdropPayment(models.Model):
     STATES = (
         (STATE_EXPIRED, 'Expired'),
         (STATE_CLAIMED, 'Claimed'),
-        (STATE_WAITING, 'Waiting for claim'),
+        (STATE_WAITING, 'Waiting to be claimed'),
         (STATE_COMING, 'Coming soon'),
     )
 

@@ -28,7 +28,7 @@ def is_abs_before_predicate(predicate: dict) -> bool:
 
 def parse_predicate(predicate: dict) -> List[Period]:
     """
-    Parse predicate dictionary to sorted list of periods.
+    Parse a predicate dictionary into a sorted list of periods.
 
     :param predicate:
     :return:
@@ -65,9 +65,9 @@ def get_next_claim_time(
     predicate: dict, now: Union[datetime, str],
 ) -> Tuple[bool, bool, bool, Optional[datetime], Optional[datetime]]:
     """
-    Look up the closest time of claim balance based on predicate.
-    Return a tuple of (can_claim_now, expired, conflict, period_start, period_end),
-    where period_start and period_end are borders of closest time period of claim.
+    Look up the closest time a balance can be claimed based on predicates.
+    Return a tuple of (can_claim_now, expired, conflict, period_start, period_end), where period_start and period_end
+    are borders of closest time period during which a balance can be claimed.
 
     :param predicate: Claimable balance predicate.
     :param now: Current time.
@@ -79,7 +79,7 @@ def get_next_claim_time(
     periods_list = parse_predicate(predicate)
 
     if len(periods_list) == 0:
-        # Conflict time periods.
+        # Conflicting time periods.
         return (
             False,
             False,
@@ -93,7 +93,7 @@ def get_next_claim_time(
             continue
 
         if period.start <= now <= period.end == Period.get_max_value():
-            # If all time limit stay in the past we don't show them.
+            # Don't show time periods if they are outdated and no longer relevant.
             return (
                 True,
                 False,
@@ -120,7 +120,7 @@ def get_next_claim_time(
                 period.get_valuable_end(),
             )
 
-    # Expired.
+    # Claimable balance is expired and can't be claimed.
     return (
         False,
         True,
