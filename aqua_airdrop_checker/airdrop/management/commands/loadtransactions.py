@@ -73,12 +73,12 @@ class Command(BaseCommand):
         ]
 
     def parse_horizon_response(self, operation: dict, operation_result: OperationResult):
-        # First zeros for balance type.
+        # Zeros are used to encode the balance_id version.
         balance_id = '00000000' + operation_result.tr.create_claimable_balance_result.balance_id.v0.hash.hex()
         operation_id = operation['id']
 
         claimants = operation['claimants']
-        # First to claim destination.
+        # Main destination account for a claimable balance is selected based on time periods.
         claimants.sort(key=lambda c: parse_predicate(c['predicate'])[0].start)
         destination = claimants[0]['destination']
 
