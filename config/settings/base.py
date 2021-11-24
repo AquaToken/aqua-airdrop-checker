@@ -200,4 +200,4 @@ CONSTANCE_CONFIG_FIELDSETS = {
 }
 
 
-HORIZON_URL = 'https://horizon.stellar.lobstr.co'
+HORIZON_URL = 'https://horizon.stellar.org'
